@@ -38,13 +38,20 @@ const writeCounter = (count, callback) => {
 
 // Public API - Fix this function //////////////////////////////////////////////
 
-exports.getNextUniqueId = () => {
-  counter = counter + 1;
-  return zeroPaddedNumber(counter);
+exports.getNextUniqueId = (callback) => {
+  // initialize the data and read the value of counter from hard drive
+  // step1 -  call the read counter function with the CB that returns the data
+  // might need another parameter 
+  readCounter ((err, data) => {
+    var newId = data + 1;
+    writeCounter (newId, (err, data) => {
+      callback (null, data)
+    });
+  });
+  // step2 - once we are able to read the file (previousley saved counter), 
+  // use that to assign to the counter variable
+  // we can increment the counter and write it back to the drive on non variable storage
 };
 
-
-
 // Configuration -- DO NOT MODIFY //////////////////////////////////////////////
-
 exports.counterFile = path.join(__dirname, 'counter.txt');

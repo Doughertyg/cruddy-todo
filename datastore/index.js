@@ -6,9 +6,12 @@ const counter = require('./counter');
 var items = {};
 
 // Public API - Fix these CRUD functions ///////////////////////////////////////
-
+// Your first goal is to save the current 
+// state of the counter to the hard drive,
 exports.create = (text, callback) => {
-  var id = counter.getNextUniqueId();
+  getNextUniqueId((first, data) => {
+    var id = data;
+  });
   items[id] = text;
   callback(null, { id, text });
 };
