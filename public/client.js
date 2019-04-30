@@ -14,7 +14,7 @@ $(() => {
     return template(todo);
   };
 
-  var addTodo = (todo) => {
+  var addTodo = (err, todo) => {
     $('#todos').append(renderTodo(todo));
   };
 

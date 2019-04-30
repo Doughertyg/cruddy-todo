@@ -20,7 +20,7 @@ exports.create = (text, callback) => {
         throw ('error writing counter');
       } else {
         items[id] = text;
-        callback({ id, text});
+        callback(err, { id, text});
       }
     });
   });
