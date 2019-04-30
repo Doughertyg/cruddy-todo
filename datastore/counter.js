@@ -44,7 +44,7 @@ exports.getNextUniqueId = (callback) => {
   readCounter ((err, data) => {
     var newId = data + 1;
     writeCounter (newId, (err, data) => {
-      callback (null, data)
+      callback (null, data);
     });
   });
   // step2 - once we are able to read the file (previousley saved counter), 

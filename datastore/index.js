@@ -9,7 +9,7 @@ var items = {};
 // Your first goal is to save the current 
 // state of the counter to the hard drive,
 exports.create = (text, callback) => {
-  getNextUniqueId((err, data) => {
+  counter.getNextUniqueId((err, data) => {
     var id = data;
     // create write function which accept text as a parameter and 
     // we use unique id as a name of the file
