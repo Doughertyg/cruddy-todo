@@ -40,8 +40,7 @@ const writeCounter = (count, callback) => {
 
 exports.getNextUniqueId = (callback) => {
   // initialize the data and read the value of counter from hard drive
-  // step1 -  call the read counter function with the CB that returns the data
-  // might need another parameter 
+  // step1 - call the read counter function with the CB that returns the data
   readCounter ((err, data) => {
     var newId = data + 1;
     writeCounter (newId, (err, data) => {
