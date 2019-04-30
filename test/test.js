@@ -90,6 +90,7 @@ describe('todos', () => {
 
     it('should only save todo text contents in file', (done) => {
       const todoText = 'walk the dog';
+      //added err here to handle the create in index.js (last callback);
       todos.create(todoText, (err, todo) => {
         const todoFileContents = fs.readFileSync(path.join(todos.dataDir, `${todo.id}.txt`)).toString();
         expect(todoFileContents).to.equal(todoText);

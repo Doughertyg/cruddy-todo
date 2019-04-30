@@ -6,14 +6,13 @@ const counter = require('./counter');
 var items = {};
 
 // Public API - Fix these CRUD functions ///////////////////////////////////////
-// Your first goal is to save the current 
-// state of the counter to the hard drive,
 exports.create = (text, callback) => {
   counter.getNextUniqueId((err, data) => {
     var id = data;
     // create write function which accept text as a parameter and 
     // we use unique id as a name of the file
-    var filePath = exports.dataDir + '/' + id + '.txt'; 
+    // var filePath = exports.dataDir + '/' + id + '.txt'; 
+    var filePath = path.join(exports.dataDir, id + '.txt'); 
     console.log(filePath);
     fs.writeFile(filePath, text, (err) => {
       if (err) {
@@ -27,10 +26,27 @@ exports.create = (text, callback) => {
 };
 
 exports.readAll = (callback) => {
-  var data = _.map(items, (text, id) => {
-    return { id, text };
-  });
-  callback(null, data);
+
+  // go to directory 
+  // we need to have the path for each file
+  var filePath = path.join(exports.dataDir); 
+  // if the read file function returns an err we'll return an empty array
+
+   fs.readFile ( filePath, (err, fileList) => { 
+    if (err) {
+      callback(null, []);
+    } else {
+      var result = [];
+      _.map (fileList, (text, id) => {
+        return result.push({ id, text});
+      })
+      callback (null, result);// what is returning exactly?
+    }
+   });
+  // var data = _.map(items, (text, id) => {
+  //   return { id, text };
+  // });
+  // callback(null, data);
 };
 
 exports.readOne = (id, callback) => {

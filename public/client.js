@@ -13,7 +13,7 @@ $(() => {
   var renderTodo = (todo) => {
     return template(todo);
   };
-
+  //added err here to handle the create in index.js
   var addTodo = (err, todo) => {
     $('#todos').append(renderTodo(todo));
   };
