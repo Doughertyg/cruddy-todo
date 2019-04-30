@@ -26,27 +26,26 @@ exports.create = (text, callback) => {
 };
 
 exports.readAll = (callback) => {
-
   // go to directory 
   // we need to have the path for each file
-  var filePath = path.join(exports.dataDir); 
+  var dirPath = path.join(exports.dataDir); 
   // if the read file function returns an err we'll return an empty array
-
-   fs.readFile ( filePath, (err, fileList) => { 
+  fs.readdir ( dirPath, (err, fileList) => { 
     if (err) {
       callback(null, []);
     } else {
       var result = [];
-      _.map (fileList, (text, id) => {
-        return result.push({ id, text});
-      })
+      _.map (fileList, (file) => {
+        var splitFile = file.split('.');
+        var fileObj = {
+          id: splitFile[0],
+          text: splitFile[0]
+        }
+        return result.push(fileObj);
+      });
       callback (null, result);// what is returning exactly?
     }
-   });
-  // var data = _.map(items, (text, id) => {
-  //   return { id, text };
-  // });
-  // callback(null, data);
+  });
 };
 
 exports.readOne = (id, callback) => {
