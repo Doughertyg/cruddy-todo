@@ -40,7 +40,7 @@ exports.readAll = (callback) => {
         var fileObj = {
           id: splitFile[0],
           text: splitFile[0]
-        }
+        };
         return result.push(fileObj);
       });
       callback (null, result);// what is returning exactly?
