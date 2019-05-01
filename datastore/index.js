@@ -87,14 +87,24 @@ exports.update = (id, text, callback) => {
 };
 
 exports.delete = (id, callback) => {
-  var item = items[id];
-  delete items[id];
-  if (!item) {
-    // report an error if item not found
-    callback(new Error(`No item with id: ${id}`));
-  } else {
-    callback();
-  }
+  //readone using the unique id we are passed
+  //if the id (todo) does not exist, return some error
+  //otherwise, us fs.unlink to delete the file
+  var pathToDelete = path.join(exports.dataDir, `${id}.txt`);
+
+  exports.readOne(id, (err, dataObj) => {
+    if (err) {
+      callback(err);
+    } else {
+      fs.unlink(pathToDelete, (err) => {
+        if (err) {
+          callback(err);
+        } else {
+          callback(null);
+        }
+      });
+    }
+  });
 };
 
 // Config+Initialization code -- DO NOT MODIFY /////////////////////////////////
