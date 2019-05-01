@@ -53,9 +53,9 @@ exports.readOne = (id, callback) => {
   // concatenate the id to the path adding .txt
   // run fs readFile passing that path
   // callback for the above function
-var pathFile = path.join(exports.dataDir,`${id}.txt`);
-  fs.readFile (pathFile,'UTF-8', (err, data) => {
-    if (err){
+  var pathFile = path.join(exports.dataDir, `${id}.txt`);
+  fs.readFile (pathFile, 'UTF-8', (err, data) => {
+    if (err) {
       callback (new Error(`no item with id: ${id}`));
     } else {
       var obj = {id: id, text: data};
