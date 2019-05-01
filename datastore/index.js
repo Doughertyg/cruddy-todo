@@ -65,49 +65,25 @@ exports.readOne = (id, callback) => {
 };
 
 exports.update = (id, text, callback) => {
+  //reading everything in data directory
+  //readone using the unique id we are given
+  //if it doesn't exist, throw an error
+  //otherwise, write the new todo to that id
+  var updatedPath = path.join(exports.dataDir, `${id}.txt`);
 
-//reading everything in data directory
-
-//readone using the unique id we are given
-//if it doesn't exist, throw an error
-
-//otherwise, write the new todo to that id
-
-  exports.readAll ((arg1, existedData) => {
-    if (existedData === []) {
-      console.log('There is nothing to update');
+  exports.readOne(id, (err, dataObj) => {
+    if (err) {
+      callback(err);
     } else {
-      _.map(existedData, (item) => {
-        var filePath = path.join(exports.dataDir, `${id}.txt`);
-        if (item.id === id) {
-          fs.writeFile (filePath, text, (err) => {
-            if (err) {
-              callback (new Error (`no item with id: ${id}`));
-            } else {
-              var updatedObj = { id: id, text: text }
-              callback( null, updatedObj)
-            }
-          });
-        } 
-      }); 
+      fs.writeFile(updatedPath, text, (err, data) => {
+        if (err) {
+          throw ('error writing!');
+        } else {
+          callback(null, dataObj);
+        }
+      });
     }
   });
-
-
-  
-
-
-
-
-
-
-  // var item = items[id];
-  // if (!item) {
-  //   callback(new Error(`No item with id: ${id}`));
-  // } else {
-  //   items[id] = text;
-  //   callback(null, { id, text });
-  // }
 };
 
 exports.delete = (id, callback) => {
